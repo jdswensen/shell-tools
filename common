@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+st_require_command() {
+    if [ ! "$(command -v "${1}")" ]; then
+        printf "%s %s\\n" "${1}" "required, but not installed"
+        exit 1
+    fi
+}
