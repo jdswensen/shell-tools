@@ -6,3 +6,16 @@ st_require_command() {
         exit 1
     fi
 }
+
+st_get_distro() {
+    local distro_name="unknown"
+
+    if [ -f /etc/os-release ]; then
+        # is systemd
+        # shellcheck disable=SC1091
+        source /etc/os-release
+        distro_name=$( printf "%s" "${NAME}" | awk '{print tolower($0)}' )
+    fi
+
+    printf "%s" "${distro_name}"
+}
