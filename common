@@ -19,3 +19,11 @@ st_get_distro() {
 
     printf "%s" "${distro_name}"
 }
+
+st_get_os() {
+    local os_name="unknown"
+
+    os_name=$(uname -s)
+
+    printf "%s" "${os_name}"
+}
