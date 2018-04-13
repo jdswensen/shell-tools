@@ -27,3 +27,10 @@ st_get_os() {
 
     printf "%s" "${os_name}"
 }
+
+st_get_file_encoding() {
+    file                \
+    --mime-encoding     \
+    --brief             \
+    "${1}"
+}
