@@ -7,6 +7,14 @@ st_require_command() {
     fi
 }
 
+st_try_command() {
+    if [ ! "$(command -v "${1}")" ]; then
+        printf "false"
+    else
+        printf "true"
+    fi
+}
+
 st_get_distro() {
     local distro_name="unknown"
 
