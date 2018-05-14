@@ -36,6 +36,16 @@ st_get_os() {
     printf "%s" "${os_name}"
 }
 
+st_is_os() {
+    os_name=$(st_get_os)
+
+    if [ "${1}" == "${os_name}" ]; then
+        printf "true"
+    else
+        printf "false"
+    fi
+}
+
 st_get_file_encoding() {
     file                \
     --mime-encoding     \
