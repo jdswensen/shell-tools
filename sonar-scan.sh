@@ -22,8 +22,8 @@ usage() {
     printf "OPTS:\\n"
     printf "    -b | --build-dir                Directory to build in\\n"
     printf "    -c | --cmake-dir                CMake configuration location\\n"
-    printf "    -v | --verbose                  Verbose output"
     printf "    -t | --travis                   Build using the travis build system\\n"
+    printf "    -v | --verbose                  Verbose output"
     exit 0
 }
 
@@ -31,6 +31,7 @@ while [[ $# -gt 0 ]]; do
     case "${1}" in
         -b|--build-dir) cli_build_dir="${2}"; shift ;;
         -c|--cmake-dir) cli_cmake="yes"; cli_cmake_dir="${2}"; shift ;;
+        -t|--travis) cli_travis="yes";;
         -v|--verbose) cli_verbose="yes";;
         -h*|--help*|*) usage ;;
     esac
@@ -111,7 +112,9 @@ perform_scan() {
 
     "${BUILD_WRAPPER}" --out-dir bw-output make ${verbose_opts}
 
-    sonar-scanner -X
+    if [[ ! "${cli_travis}" == "yes" ]]; then
+        sonar-scanner -X
+    fi
 }
 
 check_depends
