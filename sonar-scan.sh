@@ -22,6 +22,7 @@ usage() {
     printf "OPTS:\\n"
     printf "    -b | --build-dir                Directory to build in\\n"
     printf "    -c | --cmake-dir                CMake configuration location\\n"
+    printf "    -v | --verbose                  Verbose output"
     printf "    -t | --travis                   Build using the travis build system\\n"
     exit 0
 }
@@ -30,10 +31,16 @@ while [[ $# -gt 0 ]]; do
     case "${1}" in
         -b|--build-dir) cli_build_dir="${2}"; shift ;;
         -c|--cmake-dir) cli_cmake="yes"; cli_cmake_dir="${2}"; shift ;;
+        -v|--verbose) cli_verbose="yes";;
         -h*|--help*|*) usage ;;
     esac
     shift
 done
+
+
+if [[ ${cli_verbose} == "yes" ]]; then
+    set -x
+fi
 
 if [[ -n ${cli_build_dir} ]]; then
     build_dir=${cli_build_dir};
