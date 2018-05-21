@@ -22,6 +22,8 @@ usage() {
     printf "OPTS:\\n"
     printf "    -b | --build-dir                Directory to build in\\n"
     printf "    -c | --cmake-dir                CMake configuration location\\n"
+    printf "    -x | --coverage                 Build with coverage symbols (implies --debug)\\n"
+    printf "    -d | --debug                    Run build with DEBUG symbols enabled\\n"
     printf "    -t | --travis                   Build using the travis build system\\n"
     printf "    -v | --verbose                  Verbose output"
     exit 0
@@ -31,6 +33,8 @@ while [[ $# -gt 0 ]]; do
     case "${1}" in
         -b|--build-dir) cli_build_dir="${2}"; shift ;;
         -c|--cmake-dir) cli_cmake="yes"; cli_cmake_dir="${2}"; shift ;;
+        -x|--coverage) cli_coverage="yes";;
+        -d|--debug) cli_debug="yes";;
         -t|--travis) cli_travis="yes";;
         -v|--verbose) cli_verbose="yes";;
         -h*|--help*|*) usage ;;
@@ -106,7 +110,17 @@ perform_scan() {
     cd "${build_dir}"
 
     if [[ ${cli_cmake} == "yes" ]]; then
-        cmake "${cli_cmake_dir}" -DCMAKE_BUILD_TYPE=RELEASE
+        if [[ ${cli_debug} == "yes" || ${cli_coverage} == "yes" ]]; then
+            cmake_build_type="DEBUG"
+        else
+            cmake_build_type="RELEASE"
+        fi
+
+        if [[ ${cli_coverage} == "yes" ]]; then
+            cmake_options+=("-DCOVERAGE=ON")
+        fi
+
+        cmake "${cli_cmake_dir}" -DCMAKE_BUILD_TYPE=${cmake_build_type} "${cmake_options[@]}"
         verbose_opts="VERBOSE=1"
     fi
 
