@@ -30,7 +30,7 @@ else
     DL="${GCC_ARM_LINK}${MAC_GCC_ARM}"
 fi
 
-if [ ! -f ${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2 ]; then
+if [ ! -f "${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2" ]; then
     #curl "${DL}" --output ${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2 --silent
     wget --quiet -c -O "${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2" "${DL}"
 fi
