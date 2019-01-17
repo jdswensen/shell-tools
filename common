@@ -39,7 +39,7 @@ st_get_os() {
 st_is_os() {
     os_name=$(st_get_os)
 
-    if [ "${1}" == "${os_name}" ]; then
+    if [ "${1}" = "${os_name}" ]; then
         printf "true"
     else
         printf "false"
