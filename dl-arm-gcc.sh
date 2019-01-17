@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 script_name=$(basename "$0")
 script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
