@@ -32,6 +32,7 @@ fi
 
 if [ ! -f "${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2" ]; then
     #curl "${DL}" --output ${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2 --silent
+    mkdir -p "${DL_DESTINATION}"
     wget --quiet -c -O "${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2" "${DL}"
 fi
 
