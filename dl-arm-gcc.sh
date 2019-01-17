@@ -6,7 +6,7 @@ script_name=$(basename "$0")
 script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
 
 # shellcheck source=/dev/null
-source "${script_dir}/common"
+. "${script_dir}/common"
 
 GCC_ARM_LINK="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm"
 
