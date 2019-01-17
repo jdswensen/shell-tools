@@ -25,10 +25,8 @@ DL_DESTINATION="${HOME}/Downloads"
 DL_FILENAME="gcc-arm-none-eabi"
 
 if [ "$(st_is_os "Linux")" = "true" ]; then
-    printf "Linux system\\n"
     DL="${GCC_ARM_LINK}${LINUX_GCC_ARM}"
 else
-    printf "Darwin system\\n"
     DL="${GCC_ARM_LINK}${MAC_GCC_ARM}"
 fi
 
