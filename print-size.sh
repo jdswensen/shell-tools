@@ -45,17 +45,17 @@ text_size=$(echo "${img_size_data}" | grep -o -E '[0-9]+' | head -1)
 data_size=$(echo "${img_size_data}" | grep -o -E '[0-9]+' | head -2 | tail -n 1)
 bss_size=$(echo "${img_size_data}" | grep -o -E '[0-9]+' | head -3 | tail -n 1)
 
-img_size=$(( "${text_size}" + "${data_size}" ))
+img_size=$(( text_size + data_size ))
 if [ ! -z "${cli_img_capacity+x}" ]; then
-    img_percent=$(( "${img_size} * 100 / "${cli_img_capacity} ))
+    img_percent=$(( img_size * 100 / cli_img_capacity ))
 else
     img_percent=100
 fi
 
-ram_size=$(( "${data_size} + "${bss_size} ))
+ram_size=$(( data_size + bss_size ))
 
 if [ ! -z "${cli_ram_capacity+x}" ]; then
-    ram_percent=$(( "${ram_size} * 100 / "${cli_ram_capacity} ))
+    ram_percent=$(( ram_size * 100 / cli_ram_capacity ))
 else
     ram_percent=100
 fi
