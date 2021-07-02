@@ -8,6 +8,7 @@ script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
 # shellcheck source=/dev/null
 . "${script_dir}/common"
 
+# Default variables
 GCC_ARM_LINK="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm"
 
 V8_2018_Q4_DIR_STR="8-2018q4"
@@ -23,6 +24,16 @@ MAC_GCC_ARM="/${DIR_STR}/gcc-arm-none-eabi-${VER_STR}-mac.tar.bz2"
 
 DL_DESTINATION="${HOME}/Downloads"
 DL_FILENAME="gcc-arm-none-eabi"
+INSTALL_DESTINATION="${HOME}/opt/"
+
+while [[ $# -gt 0 ]]; do
+    case "${1}" in
+        -d|--download-dir) DL_DESTINATION="${2}"; shift ;;
+        -i|--install-dir) INSTALL_DESTINATION="${2}"; shift ;;
+        -h*|--help*|*) usage ;;
+    esac
+    shift
+done
 
 if [ "$(st_is_os "Linux")" = "true" ]; then
     DL="${GCC_ARM_LINK}${LINUX_GCC_ARM}"
@@ -36,8 +47,8 @@ if [ ! -f "${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2" ]; then
     wget --quiet -c -O "${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2" "${DL}"
 fi
 
-mkdir -p "${HOME}/opt/"
-if [ ! -d "${HOME}/opt/gcc-arm-none-eabi-${VER_STR}" ]; then
-    tar -xjf "${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2" -C "${HOME}/opt/"
-    ln -s "${HOME}/opt/gcc-arm-none-eabi-${VER_STR}" "${HOME}/opt/gcc-arm-none-eabi"
+mkdir -p "${INSTALL_DESTINATION}"
+if [ ! -d "${INSTALL_DESTINATION}/gcc-arm-none-eabi-${VER_STR}" ]; then
+    tar -xjf "${DL_DESTINATION}/gcc-arm-none-eabi.tar.bz2" -C "${INSTALL_DESTINATION}"
+    ln -s "${INSTALL_DESTINATION}/gcc-arm-none-eabi-${VER_STR}" "${INSTALL_DESTINATION}/gcc-arm-none-eabi"
 fi
